@@ -1,0 +1,71 @@
+
+library(MASS)    
+library(lattice) ## includes many useful graphical applications
+library(nloptr)
+library(jsonlite)
+library(carData)
+library(survival)
+library(stats)
+library(stats4)
+library(gplots)
+library(pgirmess)
+library(splines)
+library(effects)
+trellis.par.set(effectsTheme())
+library(sandwich)
+library(RcmdrMisc)
+library(FactoMineR)   ## ACP
+library(Rcmdr)   ## ACP
+library(httpuv)
+library(xtable)
+library(sourcetools)
+library(later)
+library(promises)
+library(miniUI)
+library(arm)
+library(shiny)
+library(crosstalk)
+library(manipulateWidget)
+library(rprojroot)
+library(matrixcalc)
+library(mi)
+library(tcltk)
+library(aplpack)
+library(zoo)
+library(lmtest)
+library(rgl)
+library(Commander)
+library(sem)
+library(rmarkdown)
+library(Rcmdr)
+library(factoextra)
+library(autoRestart)
+install.packages("autoRestart",dependencies=TRUE)
+install.packages("Commander",dependencies=TRUE)
+library(abind, pos=51)
+library(e1071, pos=52)
+#        
+Commander
+
+
+
+#PCA  non scale or scale 1 qualitative variable , 6 variables
+
+data <- read.table("/path/doc.csv", header=TRUE, sep=";", na.strings="NA", dec=",", strip.white=TRUE)
+d.PCA<-data[, c("variable1", "variable2", "variable3", "variable4","variable6","variable17" ,"qualivariable")]
+res<-PCA(d.PCA , scale.unit=TRUE, ncp=5, quali.sup=c(7: 7), graph = TRUE) 
+#scale.unit=TRUE : scale ; scale.unit=False: non scale # quali.sup=c(7: 7) delete if no qualitative variable
+
+plot.PCA(res, axes=c(1, 2), choix="ind", habillage="none", col.ind="black", col.ind.sup="blue", col.quali="magenta", label=c("ind.sup", "quali"),new.plot=TRUE, title="")
+plotellipses(res, keepvar = "qualivariable", label = "none", means = FALSE)
+plot.PCA(res, axes=c(1, 2), choix="var", new.plot=TRUE, col.var="black", col.quanti.sup="blue", label=c("var", "quanti.sup"), lim.cos2.var=0, title="")
+
+summary(res, nb.dec = 3, nbelements=10, nbind = 10, ncp = 3, file="")
+write.infile(res$eig, file ="ACP.csv",append=FALSE)
+write.infile(res$var, file ="ACP.csv",append=TRUE)
+write.infile(res$ind, file ="ACP.csv",append=TRUE)
+write.infile(res$quanti.sup, file ="AC.csv",append=TRUE)
+write.infile(res$quali.sup, file ="ACP.csv",append=TRUE)
+write.infile(dimdesc(res, axes=1:5), file ="ACP.csv", append=TRUE)
+
+# remove(d.PCA)
