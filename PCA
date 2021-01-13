@@ -54,7 +54,8 @@ Commander
 data <- read.table("/path/doc.csv", header=TRUE, sep=";", na.strings="NA", dec=",", strip.white=TRUE)
 d.PCA<-data[, c("variable1", "variable2", "variable3", "variable4","variable6","variable17" ,"qualivariable")]
 res<-PCA(d.PCA , scale.unit=TRUE, ncp=5, quali.sup=c(7: 7), graph = TRUE) 
-#scale.unit=TRUE : scale ; scale.unit=False: non scale # quali.sup=c(7: 7) delete if no qualitative variable
+#scale.unit=TRUE : scale ; scale.unit=False: non scale
+# quali.sup=c(7: 7) delete if no qualitative variable
 
 plot.PCA(res, axes=c(1, 2), choix="ind", habillage="none", col.ind="black", col.ind.sup="blue", col.quali="magenta", label=c("ind.sup", "quali"),new.plot=TRUE, title="")
 plotellipses(res, keepvar = "qualivariable", label = "none", means = FALSE)
